@@ -1,0 +1,41 @@
+import java.util.HashMap;
+import java.util.Map;
+
+// Problem: Valid Anagram
+// Approach: HashMap frequency counting
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
+public class ValidAnagram {
+
+    public static boolean isAnagram(String s1, String s2) {
+
+        if (s1 == null || s2 == null) {
+            throw new IllegalArgumentException("Input cannot be null");
+        }
+
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+
+        Map<Character, Integer> map = new HashMap<>();
+
+        for (char ch : s1.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+
+        for (char ch : s2.toCharArray()) {
+            if (!map.containsKey(ch)) {
+                return false;
+            }
+
+            map.put(ch, map.get(ch) - 1);
+
+            if (map.get(ch) < 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
